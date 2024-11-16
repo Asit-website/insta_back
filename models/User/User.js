@@ -92,7 +92,9 @@ EmployeeType:{
 
   PermissionRole:{
      type:mongoose.Types.ObjectId,
-    ref:"PermissionRole",  
+    ref:"PermissionRole", 
+    required:false,
+    set: (jkk) => (jkk === "" ? undefined : jkk), 
   },
   
   isBreakIn:{

@@ -145,10 +145,7 @@ export const GetTaskByUser = async(req ,res)=>{
 export const  GetMeetByUser = async(req ,res)=>{
     const {userId} = req.params;
 
-    console.log("userId ",userId);
-
     const allMeet = await Meet.find({user:userId}).populate("user");
-    console.log("usermeet ",allMeet);
 
     return res.status(200).json({
        status:true ,

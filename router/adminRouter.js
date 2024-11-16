@@ -86,8 +86,11 @@ import {
   createQuatation,
   getQuatation,
   deleteQuatation,
+  getTodayLead ,
+  getTodayLead2 ,
   updateQuatation,
-  getEveryLeadQuatation , Acceptassetsapi
+  getEveryLeadQuatation , Acceptassetsapi,
+  closeLead , getAllCloseLead , getAllCloseLead2
 } from "../controller/adminController.js";
 import isAuthenticated from "../middleware/auth.js";
 const router = Router();
@@ -196,6 +199,11 @@ router.delete("/deleteTrip/:id",deleteTrip);
 router.put("/updateTrip/:id",updateTrip);
 
 router.delete("/deleteLead/:id",deleteLeads);
+router.post("/closeLead/:id",closeLead);
+router.post("/getAllCloseLead",getAllCloseLead);
+router.post("/getAllCloseLead2",getAllCloseLead2);
+router.post("/getTodayLead",getTodayLead);
+router.post("/getTodayLead2",getTodayLead2);
 router.put("/updateLead/",updateLeads);
 router.post("/updateLead/:id",updateLeadImage);
 

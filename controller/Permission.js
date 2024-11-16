@@ -45,7 +45,8 @@ const allPermission = [
     'performancePermission',
     'employeeManagePermission',
     'employeeManageEditPermission',
-    'employeeManageActivatePermission'
+    'employeeManageActivatePermission',
+    'hrManagement',
 ];
 
 export const ProvidePermission = async (req, res) => {

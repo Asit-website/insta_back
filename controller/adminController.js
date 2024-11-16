@@ -438,10 +438,10 @@ Kushel Digi Solutions
       AccountNumber,
       confirmAccount,
       Branch,
-      // createdBy: req?.user?.role,
       EmployeeType: employeeType ,
-      PermissionRole: PermissionRole === "Select Role" ? "" : PermissionRole
+      PermissionRole: (PermissionRole === "Select Role" || PermissionRole === "") ? null : PermissionRole
     });
+
 
     const empType = await EmployeeType.create({ type: employeeType, users: adminUser?._id });
 
@@ -453,7 +453,7 @@ Kushel Digi Solutions
       }
     );
   } catch (error) {
-    console.log("the error is :", error.message);
+    console.log("the error is :", error);
     throw new ApiError(500, "Internal Server Error");
   }
 });
@@ -2316,6 +2316,105 @@ export const deleteLeads = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, data, "Deleted Successfully"));
 });
 
+export const closeLead = async (req, res) => {
+  const { id } = req.params; 
+
+  try {
+    const currentDate = new Date().toISOString(); 
+    
+    const lead = await Lead.findByIdAndUpdate(id, {
+      status: 'Close',
+      closeDate: currentDate,
+    }, { new: true }); 
+
+    if (!lead) {
+      return res.status(404).json({ status:false, message: 'Lead not found' });
+    }
+
+    return res.status(200).json({
+      status:true ,
+      lead
+    });
+  } catch (error) {
+    return res.status(500).json({ message: 'Server error', error });
+  }
+};
+
+export const getAllCloseLead = async (req, res) => {
+
+  try {
+
+   const  ans = await Lead.find({status:"Close"}).sort({Date:-1});
+   return res.status(200).json({
+    status:ans , 
+    
+   })
+  } catch (error) {
+    return res.status(500).json({ message: 'Server error', error });
+  }
+};
+
+export const getAllCloseLead2 = async (req, res) => {
+  
+  const {id} =req.body;
+
+  try {
+
+   const  ans = await Lead.find({status:"Close" , LeadOwner:id}).sort({Date:-1});
+   return res.status(200).json({
+    status:ans , 
+   })
+  } catch (error) {
+    return res.status(500).json({ message: 'Server error', error });
+  }
+};
+
+export const getTodayLead = async (req, res) => {
+  try {
+    // Get the current date in UTC for the start of the day
+    const startOfToday = new Date();
+    startOfToday.setUTCHours(0, 0, 0, 0);
+
+    // Get the end of the current day in UTC
+    const endOfToday = new Date();
+    endOfToday.setUTCHours(23, 59, 59, 999);
+
+    const ans = await Lead.find({
+      createAt: { $gte: startOfToday, $lte: endOfToday }
+    });
+
+    return res.status(200).json({
+      status: "success",
+      leads: ans,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: 'Server error', error });
+  }
+};
+
+export const getTodayLead2 = async (req, res) => {
+  try {
+    const {id} = req.body;
+    const startOfToday = new Date();
+    startOfToday.setUTCHours(0, 0, 0, 0);
+
+    const endOfToday = new Date();
+    endOfToday.setUTCHours(23, 59, 59, 999);
+
+    const ans = await Lead.find({
+      createAt: { $gte: startOfToday, $lte: endOfToday } , 
+      LeadOwner: id
+    });
+
+    return res.status(200).json({
+      status: "success",
+      leads: ans,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: 'Server error', error });
+  }
+};
+
 export const updateLeads = asyncHandler(async (req, res) => {
   const { LeadOwner,
     Company,
@@ -2768,10 +2867,3 @@ export const syncUser = async (req, res) => {
   })
 
 }
-
-
-
-
-
-
-

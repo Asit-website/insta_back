@@ -70,8 +70,6 @@ export const LeaveTypeApi = async ({ id }) => {
 
   const userLeave = await Leave.find({user:id});
 
-  console.log("userleave ",userLeave);
-
    const paidLeave = userLeave.filter((lev)=> lev?.leaveType === "Paid Leave" || lev?.leaveType === '' );
    const casualLeave = userLeave.filter((lev)=> lev?.leaveType === "Casual Leave" || lev?.leaveType === 'Sick Leave');
  

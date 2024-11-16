@@ -10,9 +10,9 @@ const mySchema = new mongoose.Schema({
     LastName: String,
     Title: String,
     Email: String,
-    Phone: Number,
+    Phone: String,
     Fax: String,
-    Mobile:  Number,
+    Mobile:  String,
     Website:  String,
     LeadSource:  String,
     NoOfEmployee:  String,
@@ -42,7 +42,14 @@ const mySchema = new mongoose.Schema({
       type: Date , 
       default:Date.now()
      },
-     invoiceId:[
+     status:{
+      type:String,
+      default:"Open"
+     },
+     closeDate:{
+      type:String,
+     },
+          invoiceId:[
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Invoice'

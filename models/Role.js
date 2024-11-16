@@ -91,6 +91,10 @@ const mySchema = new mongoose.Schema({
         type: Boolean , 
         default:false ,
        } , 
+       hrManagement:{
+        type:Boolean,
+        default:false
+       },
        permissionPagePermission:{ 
         type: Boolean , 
         default:false ,
