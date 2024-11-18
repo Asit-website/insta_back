@@ -9,10 +9,11 @@ import Document from "../models/Document/Document.js";
 import Industry from "../models/Industry/Industry.js";
 import LeadStatus from "../models/Leadstatus/LeadStatus.js";
 import LeadSource from "../models/LeadSource/LeadSource.js";
-
+import LeadType from '../models/LeadType/LeadType.js';
 import User from "../models/User/User.js";
 import LeadStat from "../models/LeadStat/LeadStat.js";
 import FollowUpType from "../models/FollowUpType/FollowUpType.js";
+import { leadEditByUser } from "./leadController.js";
 export const postLeaveType = asyncHandler(async (req, res) => {
   const { name, days } = req.body;
   const existLeave = await LeaveType.findOne({ name });
@@ -424,6 +425,60 @@ export const deleteLeadSource = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   const data = await LeadSource.findByIdAndDelete(id);
+  return res
+    .status(200)
+    .json(new ApiResponse(200, data, "Deleted   Successfully"));
+});
+
+export const postLeadType = asyncHandler(async (req, res) => {
+  const { name } = req.body;
+  const existLeadTypeName = await LeadType.findOne({ name });
+  if (existLeadTypeName) {
+    return res.status(400).json({
+      success: false,
+      message: "LeadType Name Alreday Exist",
+    });
+  }
+  const newLeadType = await LeadType.create({
+    name,
+  });
+  return res
+    .status(200)
+    .json(new ApiResponse(200, newLeadType, " successfully posted", existLeadTypeName));
+});
+
+export const getLeadType = asyncHandler(async (req, res) => {
+  const data = await LeadType.find({});
+  return res
+    .status(200)
+    .json(new ApiResponse(200, data, "leadType fetched Successfully"));
+});
+
+export const updateLeadType = asyncHandler(async (req, res) => {
+  const { name } = req.body;
+  const { id } = req.params;
+  let updateObj = removeUndefined({name});
+  // console.log(status, name);
+  // console.log(id);
+
+  const updateLeadType = await LeadType.findByIdAndUpdate(
+    id,
+    {
+      $set: updateObj,
+    },
+    {
+      new: true,
+    }
+  );
+  return res
+    .status(200)
+    .json(new ApiResponse(200, updateLeadType, "Updated  Successfully"));
+});
+
+export const deleteLeadType = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const data = await LeadType.findByIdAndDelete(id);
   return res
     .status(200)
     .json(new ApiResponse(200, data, "Deleted   Successfully"));

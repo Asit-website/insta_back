@@ -15,6 +15,7 @@ const mySchema = new mongoose.Schema({
     Mobile:  String,
     Website:  String,
     LeadSource:  String,
+    LeadType:String,
     NoOfEmployee:  String,
     Industry:  String,
     LeadStatus:  String,

@@ -39,6 +39,10 @@ import {
   updateFollow,
   getFollow,
   deleteFollow,
+  postLeadType,
+  getLeadType,
+  updateLeadType,
+  deleteLeadType
 } from "../controller/systemController.js";
 
 const router = Router();
@@ -96,6 +100,11 @@ router.post("/postLeadStat", PostLeadStat);
 router.put("/updateLeadStat/:id", updateLeadStat);
 router.get("/getLeadStat", getLeadStat);
 router.delete("/deleteLeadStat/:id", deleteLeadStat);
+
+router.post("/postLeadType", postLeadType);
+router.put("/updateLeadType/:id", updateLeadType);
+router.get("/getLeadType", getLeadType);
+router.delete("/deleteLeadType/:id", deleteLeadType);
 
 router.post("/postFollow", PostFollow);
 router.put("/updateFollow/:id", updateFollow);
