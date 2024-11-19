@@ -2675,6 +2675,7 @@ export const getQuatation = async (req, res) => {
 
     // Find notifications where the user ID is in the user array
     const quatation = await Quatation.find({});
+    console.log("qqq",quatation);
 
     return res.status(200).json({
       status: 200,

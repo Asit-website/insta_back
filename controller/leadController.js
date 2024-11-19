@@ -342,14 +342,9 @@ export const PostQuotationForm = async (req, res) => {
       rows,
     } = req.body;
 
-    console.log( "quotation", userId,
-      leadId,
-      customerAddress,
-      customerCompany,
-      customerName,
-      quotationDate,
-      quotationNum,
-      rows,)
+    console.log(leadId,"leadid")
+
+    
 
     const newQuotation = new Quatation({
       userId,
@@ -598,6 +593,7 @@ export const GetQuotationApi = async (req, res) => {
 
   try {
     const quotations = await Quatation.find({ leadId });
+    console.log('qt',quotations)
     const proposals = await Proposal.find({leadId});
 
     res.status(200).json({
