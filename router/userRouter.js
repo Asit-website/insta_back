@@ -23,7 +23,8 @@ import {
   uploadImgToCloudinary,
   DeactivateUser , 
   getThisMonthLeave , 
-  getUserOwndetail
+  getUserOwndetail , 
+  
 } from "../controller/userController.js";
 import isAuthenticated from "../middleware/auth.js";
 const router = Router();
@@ -74,6 +75,8 @@ router.route("/uploadSingleImg").post( uploadSingleImg);
 router.get("/getThisMonthLeave/:userId" , getThisMonthLeave);
 router.post("/changeBreakin" , changeBreakIn);
 router.post("/getUserOwndetail/:userId" , getUserOwndetail);
+
+
 
 
 

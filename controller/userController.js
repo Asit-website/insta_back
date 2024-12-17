@@ -10,6 +10,7 @@ import fs from "fs";
 import { removeUndefined } from "../utils/util.js";
 import Leave from "../models/Leave/Leave.js";
 
+
 const generateRefreshToken = async (userId) => {
   try {
     const user = await User.findById(userId);
