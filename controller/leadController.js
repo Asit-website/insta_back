@@ -1188,8 +1188,6 @@ export const InstaAddLead = async (req ,res)=>{
 
   const {FirstName , Phone , Email} = req.body;
 
-  console.log("hafd" , FirstName , Phone , Email);
-
    const LeadDetail = await Lead.create({FirstName , Phone , Email});
 
    return res.status(200).json({
